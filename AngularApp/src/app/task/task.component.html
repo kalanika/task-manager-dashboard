@@ -1,0 +1,77 @@
+<div class="row">
+  <div class="col s12">
+    <div class="card">
+      <div class="card-content white-text">
+        <span class="card-title">User Dashboard</span>
+        <div class="row">
+         
+          <div class="col s5">
+            <form #taskForm="ngForm" (ngSubmit)="onSubmit(taskForm)">
+              <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="taskService.selectedTask._id">
+              <div class="row">
+                <div class="input-field col s12">
+                  <input type="text" name="name" #name="ngModel" [(ngModel)]="taskService.selectedTask.name" placeholder="Enter task Name" required>
+                  <label>Task Name :
+                    <label class="red-text">*</label>
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input type="text" name="duedate" #name="ngModel" [(ngModel)]="taskService.selectedTask.duedate" placeholder="eg:YYYY/MM/DD">
+                  <label>Due Date :</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <input type="text" name="description" #name="ngModel" [(ngModel)]="taskService.selectedTask.description" placeholder="Enter task description">
+                  <label>Description :</label>
+                </div>
+              </div>
+           
+              <div class="row">
+                <div class="input-field col s12">
+                  <button class="btn btn-custom right" type="button" (click)="resetForm(taskForm)">Reset</button>
+                  <button class="btn btn-custom right" type="submit" [disabled]="!taskForm.valid">Submit</button>
+                  <button class="btn btn-custom right" type="button" (click)="loadMyChildComponent()">View Weather</button>
+                 
+                  
+                  <app-weather-widget-main *ngIf="loadComponent"></app-weather-widget-main>
+                 
+                  
+                </div>
+              </div>
+              
+            </form>
+          </div>
+          <div class="col s7">
+              <table class="responsive-table highlight">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>DueDate</th>
+                      <th>Description</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tr *ngFor="let tsk of taskService.tasks">
+                    <td>{{tsk.name}}</td>
+                    <td>{{tsk.duedate}}</td>
+                    <td>{{tsk.description}}</td>
+                    <td>
+                        <a class="action-btn" (click)="onEdit(tsk)">
+                          <i class="material-icons">edit</i>
+                        </a>
+                        <a class="action-btn" (click)="onDelete(tsk._id,taskForm)">
+                          <i class="material-icons">delete</i>
+                        </a>
+                      </td>
+                  </tr>
+                </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
